@@ -26,14 +26,25 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+
 #define LOG_NIDEBUG 0
 #define LOG_TAG "QCamera2Factory"
+
 #include <stdlib.h>
 #include <utils/Errors.h>
 #include <hardware/camera.h>
+
 #include "QCamera2Factory.h"
+
 namespace qcamera {
+
 QCamera2Factory gQCamera2Factory;
+
+pthread_mutex_t gCamLock = PTHREAD_MUTEX_INITIALIZER;
+//Total number of cameras opened simultaneously.
+//This variable updation is protected by gCamLock.
+uint8_t gNumCameraSessions = 0;
+
 /*===========================================================================
  * FUNCTION   : QCamera2Factory
  *
@@ -47,6 +58,7 @@ QCamera2Factory::QCamera2Factory()
 {
     mNumOfCameras = get_num_of_cameras();
 }
+
 /*===========================================================================
  * FUNCTION   : ~QCamera2Factory
  *
@@ -59,6 +71,7 @@ QCamera2Factory::QCamera2Factory()
 QCamera2Factory::~QCamera2Factory()
 {
 }
+
 /*===========================================================================
  * FUNCTION   : get_number_of_cameras
  *
@@ -72,6 +85,7 @@ int QCamera2Factory::get_number_of_cameras()
 {
     return gQCamera2Factory.getNumberOfCameras();
 }
+
 /*===========================================================================
  * FUNCTION   : get_camera_info
  *
@@ -89,6 +103,7 @@ int QCamera2Factory::get_camera_info(int camera_id, struct camera_info *info)
 {
     return gQCamera2Factory.getCameraInfo(camera_id, info);
 }
+
 /*===========================================================================
  * FUNCTION   : getNumberOfCameras
  *
@@ -102,6 +117,7 @@ int QCamera2Factory::getNumberOfCameras()
 {
     return mNumOfCameras;
 }
+
 /*===========================================================================
  * FUNCTION   : getCameraInfo
  *
@@ -118,14 +134,17 @@ int QCamera2Factory::getNumberOfCameras()
 int QCamera2Factory::getCameraInfo(int camera_id, struct camera_info *info)
 {
     int rc;
-    ALOGE("%s: E, camera_id = %d", __func__, camera_id);
+    ALOGV("%s: E, camera_id = %d", __func__, camera_id);
+
     if (!mNumOfCameras || camera_id >= mNumOfCameras || !info) {
         return INVALID_OPERATION;
     }
-    rc = QCamera2HardwareInterface::getCapabilities(camera_id, info);
+
+    rc = QCamera2HardwareInterface::getCapabilities((uint32_t)camera_id, info);
     ALOGV("%s: X", __func__);
     return rc;
 }
+
 /*===========================================================================
  * FUNCTION   : cameraDeviceOpen
  *
@@ -145,7 +164,8 @@ int QCamera2Factory::cameraDeviceOpen(int camera_id,
     int rc = NO_ERROR;
     if (camera_id < 0 || camera_id >= mNumOfCameras)
         return BAD_VALUE;
-    QCamera2HardwareInterface *hw = new QCamera2HardwareInterface(camera_id);
+
+    QCamera2HardwareInterface *hw = new QCamera2HardwareInterface((uint32_t)camera_id);
     if (!hw) {
         ALOGE("Allocation of hardware interface failed");
         return NO_MEMORY;
@@ -156,6 +176,7 @@ int QCamera2Factory::cameraDeviceOpen(int camera_id,
     }
     return rc;
 }
+
 /*===========================================================================
  * FUNCTION   : camera_device_open
  *
@@ -184,7 +205,9 @@ int QCamera2Factory::camera_device_open(
     }
     return gQCamera2Factory.cameraDeviceOpen(atoi(id), hw_device);
 }
+
 struct hw_module_methods_t QCamera2Factory::mModuleMethods = {
-    open: QCamera2Factory::camera_device_open,
+    .open = QCamera2Factory::camera_device_open,
 };
+
 }; // namespace qcamera

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 # If you don't need to do a full clean build but would like to touch
 # a file or delete some intermediate files, add a clean step to the end
 # of the list.  These steps will only be run once, if they haven't been
@@ -36,10 +37,11 @@
 # ************************************************
 # NEWER CLEAN STEPS MUST BE AT THE END OF THE LIST
 # ************************************************
+
 # For example:
 #$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/APPS/AndroidTests_intermediates)
 #$(call add-clean-step, rm -rf $(OUT_DIR)/target/common/obj/JAVA_LIBRARIES/core_intermediates)
 #$(call add-clean-step, find $(OUT_DIR) -type f -name "IGTalkSession*" -print0 | xargs -0 rm -f)
 #$(call add-clean-step, rm -rf $(PRODUCT_OUT)/data/*)
-$(call add-clean-step, find $(OUT_DIR) -name "camera.msm8960*" -print0 | xargs -0 rm -rf)
-$(call add-clean-step, rm -f $(PRODUCT_OUT)/system/lib/hw/camera.*.so)
+
+$(call add-clean-step, find $(OUT_DIR) -name "camera.msm8916*" -print0 | xargs -0 rm -rf)

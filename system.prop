@@ -161,9 +161,6 @@ ro.ril.gprsclass=10
 ro.telephony.call_ring.multiple=false
 ro.use_data_netmgrd=true
 
-# Security patch level
-ro.lineage.build.vendor_security_patch=2018-02-01
-
 # Tethering
 sys.usb.rps_mask=10
 persist.sys.usb.config.extra=none

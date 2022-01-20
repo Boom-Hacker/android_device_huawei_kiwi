@@ -191,10 +191,8 @@ TARGET_USES_QCOM_WCNSS_QMI := true
 TARGET_USES_WCNSS_CTRL := true
 TARGET_PROVIDES_WCNSS_QMI := true
 
-#Other
-#BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
-#ALLOW_MISSING_DEPENDENCIES=true
-ALLOW_NINJA_ENV=false
-
 # inherit from the proprietary version
 -include vendor/huawei/kiwi/BoardConfigVendor.mk
+
+# Gaps arch
+TARGET_GAPPS_ARCH := arm64

@@ -1,1 +1,497 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>QCamera2/stack/mm-jpeg-interface/inc/mm_jpeg.h - platform/hardware/qcom/camera - Git at Google</title><link rel="stylesheet" type="text/css" href="/+static/base.css"><link rel="stylesheet" type="text/css" href="/+static/prettify/prettify.css"><!-- default customHeadTagPart --></head><body class="Site"><header class="Site-header"><div class="Header"><a class="Header-image" href="/"><img src="//www.gstatic.com/images/branding/lockups/2x/lockup_git_color_108x24dp.png" width="108" height="24" alt="Google Git"></a><div class="Header-menu"> <a class="Header-menuItem" href="https://accounts.google.com/AccountChooser?service=gerritcodereview&amp;continue=https://android.googlesource.com/login/platform/hardware/qcom/camera/%2B/jb-mr2.0-release/QCamera2/stack/mm-jpeg-interface/inc/mm_jpeg.h">Sign in</a> </div></div></header><div class="Site-content"><div class="Container "><div class="Breadcrumbs"><a class="Breadcrumbs-crumb" href="/?format=HTML">android</a> / <a class="Breadcrumbs-crumb" href="/platform/">platform</a> / <a class="Breadcrumbs-crumb" href="/platform/hardware/">hardware</a> / <a class="Breadcrumbs-crumb" href="/platform/hardware/qcom/">qcom</a> / <a class="Breadcrumbs-crumb" href="/platform/hardware/qcom/camera/">camera</a> / <a class="Breadcrumbs-crumb" href="/platform/hardware/qcom/camera/+/jb-mr2.0-release">jb-mr2.0-release</a> / <a class="Breadcrumbs-crumb" href="/platform/hardware/qcom/camera/+/jb-mr2.0-release/">.</a> / <a class="Breadcrumbs-crumb" href="/platform/hardware/qcom/camera/+/jb-mr2.0-release/QCamera2">QCamera2</a> / <a class="Breadcrumbs-crumb" href="/platform/hardware/qcom/camera/+/jb-mr2.0-release/QCamera2/stack">stack</a> / <a class="Breadcrumbs-crumb" href="/platform/hardware/qcom/camera/+/jb-mr2.0-release/QCamera2/stack/mm-jpeg-interface">mm-jpeg-interface</a> / <a class="Breadcrumbs-crumb" href="/platform/hardware/qcom/camera/+/jb-mr2.0-release/QCamera2/stack/mm-jpeg-interface/inc">inc</a> / <span class="Breadcrumbs-crumb">mm_jpeg.h</span></div><div class="u-sha1 u-monospace BlobSha1">blob: 593c7d43c2a3a30585484299de0501cc7abb525e [<a href="/platform/hardware/qcom/camera/+/jb-mr2.0-release/QCamera2/stack/mm-jpeg-interface/inc/mm_jpeg.h">file</a>] [<a href="/platform/hardware/qcom/camera/+log/jb-mr2.0-release/QCamera2/stack/mm-jpeg-interface/inc/mm_jpeg.h">log</a>] [<a href="/platform/hardware/qcom/camera/+blame/jb-mr2.0-release/QCamera2/stack/mm-jpeg-interface/inc/mm_jpeg.h">blame</a>]</div><table class="FileContents"><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="1" onclick="window.location.hash='#1'"></td><td class="FileContents-lineContents" id="1"><span class="com">/* Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="2" onclick="window.location.hash='#2'"></td><td class="FileContents-lineContents" id="2"><span class="com"> *</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="3" onclick="window.location.hash='#3'"></td><td class="FileContents-lineContents" id="3"><span class="com"> * Redistribution and use in source and binary forms, with or without</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="4" onclick="window.location.hash='#4'"></td><td class="FileContents-lineContents" id="4"><span class="com"> * modification, are permitted provided that the following conditions are</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="5" onclick="window.location.hash='#5'"></td><td class="FileContents-lineContents" id="5"><span class="com"> * met:</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="6" onclick="window.location.hash='#6'"></td><td class="FileContents-lineContents" id="6"><span class="com"> *     * Redistributions of source code must retain the above copyright</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="7" onclick="window.location.hash='#7'"></td><td class="FileContents-lineContents" id="7"><span class="com"> *       notice, this list of conditions and the following disclaimer.</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="8" onclick="window.location.hash='#8'"></td><td class="FileContents-lineContents" id="8"><span class="com"> *     * Redistributions in binary form must reproduce the above</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="9" onclick="window.location.hash='#9'"></td><td class="FileContents-lineContents" id="9"><span class="com"> *       copyright notice, this list of conditions and the following</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="10" onclick="window.location.hash='#10'"></td><td class="FileContents-lineContents" id="10"><span class="com"> *       disclaimer in the documentation and/or other materials provided</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="11" onclick="window.location.hash='#11'"></td><td class="FileContents-lineContents" id="11"><span class="com"> *       with the distribution.</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="12" onclick="window.location.hash='#12'"></td><td class="FileContents-lineContents" id="12"><span class="com"> *     * Neither the name of The Linux Foundation nor the names of its</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="13" onclick="window.location.hash='#13'"></td><td class="FileContents-lineContents" id="13"><span class="com"> *       contributors may be used to endorse or promote products derived</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="14" onclick="window.location.hash='#14'"></td><td class="FileContents-lineContents" id="14"><span class="com"> *       from this software without specific prior written permission.</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="15" onclick="window.location.hash='#15'"></td><td class="FileContents-lineContents" id="15"><span class="com"> *</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="16" onclick="window.location.hash='#16'"></td><td class="FileContents-lineContents" id="16"><span class="com"> * THIS SOFTWARE IS PROVIDED &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="17" onclick="window.location.hash='#17'"></td><td class="FileContents-lineContents" id="17"><span class="com"> * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="18" onclick="window.location.hash='#18'"></td><td class="FileContents-lineContents" id="18"><span class="com"> * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="19" onclick="window.location.hash='#19'"></td><td class="FileContents-lineContents" id="19"><span class="com"> * ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="20" onclick="window.location.hash='#20'"></td><td class="FileContents-lineContents" id="20"><span class="com"> * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="21" onclick="window.location.hash='#21'"></td><td class="FileContents-lineContents" id="21"><span class="com"> * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="22" onclick="window.location.hash='#22'"></td><td class="FileContents-lineContents" id="22"><span class="com"> * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="23" onclick="window.location.hash='#23'"></td><td class="FileContents-lineContents" id="23"><span class="com"> * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="24" onclick="window.location.hash='#24'"></td><td class="FileContents-lineContents" id="24"><span class="com"> * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="25" onclick="window.location.hash='#25'"></td><td class="FileContents-lineContents" id="25"><span class="com"> * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="26" onclick="window.location.hash='#26'"></td><td class="FileContents-lineContents" id="26"><span class="com"> * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="27" onclick="window.location.hash='#27'"></td><td class="FileContents-lineContents" id="27"><span class="com"> *</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="28" onclick="window.location.hash='#28'"></td><td class="FileContents-lineContents" id="28"><span class="com"> */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="29" onclick="window.location.hash='#29'"></td><td class="FileContents-lineContents" id="29"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="30" onclick="window.location.hash='#30'"></td><td class="FileContents-lineContents" id="30"><span class="com">#ifndef</span><span class="pln"> MM_JPEG_H_</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="31" onclick="window.location.hash='#31'"></td><td class="FileContents-lineContents" id="31"><span class="com">#define</span><span class="pln"> MM_JPEG_H_</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="32" onclick="window.location.hash='#32'"></td><td class="FileContents-lineContents" id="32"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="33" onclick="window.location.hash='#33'"></td><td class="FileContents-lineContents" id="33"><span class="com">#include</span><span class="pln"> </span><span class="str">&lt;cam_semaphore.h&gt;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="34" onclick="window.location.hash='#34'"></td><td class="FileContents-lineContents" id="34"><span class="com">#include</span><span class="pln"> </span><span class="str">&quot;mm_jpeg_interface.h&quot;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="35" onclick="window.location.hash='#35'"></td><td class="FileContents-lineContents" id="35"><span class="com">#include</span><span class="pln"> </span><span class="str">&quot;cam_list.h&quot;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="36" onclick="window.location.hash='#36'"></td><td class="FileContents-lineContents" id="36"><span class="com">#include</span><span class="pln"> </span><span class="str">&quot;OMX_Types.h&quot;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="37" onclick="window.location.hash='#37'"></td><td class="FileContents-lineContents" id="37"><span class="com">#include</span><span class="pln"> </span><span class="str">&quot;OMX_Index.h&quot;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="38" onclick="window.location.hash='#38'"></td><td class="FileContents-lineContents" id="38"><span class="com">#include</span><span class="pln"> </span><span class="str">&quot;OMX_Core.h&quot;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="39" onclick="window.location.hash='#39'"></td><td class="FileContents-lineContents" id="39"><span class="com">#include</span><span class="pln"> </span><span class="str">&quot;OMX_Component.h&quot;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="40" onclick="window.location.hash='#40'"></td><td class="FileContents-lineContents" id="40"><span class="com">#include</span><span class="pln"> </span><span class="str">&quot;QOMX_JpegExtensions.h&quot;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="41" onclick="window.location.hash='#41'"></td><td class="FileContents-lineContents" id="41"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="42" onclick="window.location.hash='#42'"></td><td class="FileContents-lineContents" id="42"><span class="com">#define</span><span class="pln"> MM_JPEG_MAX_THREADS </span><span class="lit">30</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="43" onclick="window.location.hash='#43'"></td><td class="FileContents-lineContents" id="43"><span class="com">#define</span><span class="pln"> MM_JPEG_CIRQ_SIZE </span><span class="lit">30</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="44" onclick="window.location.hash='#44'"></td><td class="FileContents-lineContents" id="44"><span class="com">#define</span><span class="pln"> MM_JPEG_MAX_SESSION </span><span class="lit">10</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="45" onclick="window.location.hash='#45'"></td><td class="FileContents-lineContents" id="45"><span class="com">#define</span><span class="pln"> MAX_EXIF_TABLE_ENTRIES </span><span class="lit">50</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="46" onclick="window.location.hash='#46'"></td><td class="FileContents-lineContents" id="46"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="47" onclick="window.location.hash='#47'"></td><td class="FileContents-lineContents" id="47"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">struct</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="48" onclick="window.location.hash='#48'"></td><td class="FileContents-lineContents" id="48"><span class="pln">  </span><span class="kwd">struct</span><span class="pln"> cam_list list</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="49" onclick="window.location.hash='#49'"></td><td class="FileContents-lineContents" id="49"><span class="pln">  </span><span class="kwd">void</span><span class="pun">*</span><span class="pln"> data</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="50" onclick="window.location.hash='#50'"></td><td class="FileContents-lineContents" id="50"><span class="pun">}</span><span class="pln"> </span><span class="typ">mm_jpeg_q_node_t</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="51" onclick="window.location.hash='#51'"></td><td class="FileContents-lineContents" id="51"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="52" onclick="window.location.hash='#52'"></td><td class="FileContents-lineContents" id="52"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">struct</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="53" onclick="window.location.hash='#53'"></td><td class="FileContents-lineContents" id="53"><span class="pln">  </span><span class="typ">mm_jpeg_q_node_t</span><span class="pln"> head</span><span class="pun">;</span><span class="pln"> </span><span class="com">/* dummy head */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="54" onclick="window.location.hash='#54'"></td><td class="FileContents-lineContents" id="54"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> size</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="55" onclick="window.location.hash='#55'"></td><td class="FileContents-lineContents" id="55"><span class="pln">  </span><span class="typ">pthread_mutex_t</span><span class="pln"> </span><span class="kwd">lock</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="56" onclick="window.location.hash='#56'"></td><td class="FileContents-lineContents" id="56"><span class="pun">}</span><span class="pln"> </span><span class="typ">mm_jpeg_queue_t</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="57" onclick="window.location.hash='#57'"></td><td class="FileContents-lineContents" id="57"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="58" onclick="window.location.hash='#58'"></td><td class="FileContents-lineContents" id="58"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">enum</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="59" onclick="window.location.hash='#59'"></td><td class="FileContents-lineContents" id="59"><span class="pln">  MM_JPEG_CMD_TYPE_JOB</span><span class="pun">,</span><span class="pln">          </span><span class="com">/* job cmd */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="60" onclick="window.location.hash='#60'"></td><td class="FileContents-lineContents" id="60"><span class="pln">  MM_JPEG_CMD_TYPE_EXIT</span><span class="pun">,</span><span class="pln">         </span><span class="com">/* EXIT cmd for exiting jobMgr thread */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="61" onclick="window.location.hash='#61'"></td><td class="FileContents-lineContents" id="61"><span class="pln">  MM_JPEG_CMD_TYPE_MAX</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="62" onclick="window.location.hash='#62'"></td><td class="FileContents-lineContents" id="62"><span class="pun">}</span><span class="pln"> </span><span class="typ">mm_jpeg_cmd_type_t</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="63" onclick="window.location.hash='#63'"></td><td class="FileContents-lineContents" id="63"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="64" onclick="window.location.hash='#64'"></td><td class="FileContents-lineContents" id="64"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">struct</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="65" onclick="window.location.hash='#65'"></td><td class="FileContents-lineContents" id="65"><span class="pln">  </span><span class="kwd">union</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="66" onclick="window.location.hash='#66'"></td><td class="FileContents-lineContents" id="66"><span class="pln">    </span><span class="kwd">int</span><span class="pln"> i_data</span><span class="pun">[</span><span class="pln">MM_JPEG_CIRQ_SIZE</span><span class="pun">];</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="67" onclick="window.location.hash='#67'"></td><td class="FileContents-lineContents" id="67"><span class="pln">    </span><span class="kwd">void</span><span class="pln"> </span><span class="pun">*</span><span class="pln">p_data</span><span class="pun">[</span><span class="pln">MM_JPEG_CIRQ_SIZE</span><span class="pun">];</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="68" onclick="window.location.hash='#68'"></td><td class="FileContents-lineContents" id="68"><span class="pln">  </span><span class="pun">};</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="69" onclick="window.location.hash='#69'"></td><td class="FileContents-lineContents" id="69"><span class="pln">  </span><span class="kwd">int</span><span class="pln"> front</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="70" onclick="window.location.hash='#70'"></td><td class="FileContents-lineContents" id="70"><span class="pln">  </span><span class="kwd">int</span><span class="pln"> rear</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="71" onclick="window.location.hash='#71'"></td><td class="FileContents-lineContents" id="71"><span class="pln">  </span><span class="kwd">int</span><span class="pln"> count</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="72" onclick="window.location.hash='#72'"></td><td class="FileContents-lineContents" id="72"><span class="pln">  </span><span class="typ">pthread_mutex_t</span><span class="pln"> </span><span class="kwd">lock</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="73" onclick="window.location.hash='#73'"></td><td class="FileContents-lineContents" id="73"><span class="pun">}</span><span class="pln"> </span><span class="typ">mm_jpeg_cirq_t</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="74" onclick="window.location.hash='#74'"></td><td class="FileContents-lineContents" id="74"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="75" onclick="window.location.hash='#75'"></td><td class="FileContents-lineContents" id="75"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">struct</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="76" onclick="window.location.hash='#76'"></td><td class="FileContents-lineContents" id="76"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> client_hdl</span><span class="pun">;</span><span class="pln">           </span><span class="com">/* client handler */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="77" onclick="window.location.hash='#77'"></td><td class="FileContents-lineContents" id="77"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> jobId</span><span class="pun">;</span><span class="pln">                </span><span class="com">/* job ID */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="78" onclick="window.location.hash='#78'"></td><td class="FileContents-lineContents" id="78"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> sessionId</span><span class="pun">;</span><span class="pln">            </span><span class="com">/* session ID */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="79" onclick="window.location.hash='#79'"></td><td class="FileContents-lineContents" id="79"><span class="pln">  </span><span class="typ">mm_jpeg_encode_params_t</span><span class="pln"> </span><span class="kwd">params</span><span class="pun">;</span><span class="pln"> </span><span class="com">/* encode params */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="80" onclick="window.location.hash='#80'"></td><td class="FileContents-lineContents" id="80"><span class="pln">  </span><span class="typ">mm_jpeg_encode_job_t</span><span class="pln"> encode_job</span><span class="pun">;</span><span class="pln">             </span><span class="com">/* job description */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="81" onclick="window.location.hash='#81'"></td><td class="FileContents-lineContents" id="81"><span class="pln">  </span><span class="typ">pthread_t</span><span class="pln"> encode_pid</span><span class="pun">;</span><span class="pln">          </span><span class="com">/* encode thread handler*/</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="82" onclick="window.location.hash='#82'"></td><td class="FileContents-lineContents" id="82"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="83" onclick="window.location.hash='#83'"></td><td class="FileContents-lineContents" id="83"><span class="pln">  </span><span class="kwd">void</span><span class="pln"> </span><span class="pun">*</span><span class="pln">jpeg_obj</span><span class="pun">;</span><span class="pln">                </span><span class="com">/* ptr to mm_jpeg_obj */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="84" onclick="window.location.hash='#84'"></td><td class="FileContents-lineContents" id="84"><span class="pln">  </span><span class="typ">jpeg_job_status_t</span><span class="pln"> job_status</span><span class="pun">;</span><span class="pln">  </span><span class="com">/* job status */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="85" onclick="window.location.hash='#85'"></td><td class="FileContents-lineContents" id="85"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="86" onclick="window.location.hash='#86'"></td><td class="FileContents-lineContents" id="86"><span class="pln">  </span><span class="kwd">int</span><span class="pln"> state_change_pending</span><span class="pun">;</span><span class="pln">      </span><span class="com">/* flag to indicate if state change is pending */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="87" onclick="window.location.hash='#87'"></td><td class="FileContents-lineContents" id="87"><span class="pln">  OMX_ERRORTYPE error_flag</span><span class="pun">;</span><span class="pln">      </span><span class="com">/* variable to indicate error during encoding */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="88" onclick="window.location.hash='#88'"></td><td class="FileContents-lineContents" id="88"><span class="pln">  OMX_BOOL abort_flag</span><span class="pun">;</span><span class="pln">      </span><span class="com">/* variable to indicate abort during encoding */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="89" onclick="window.location.hash='#89'"></td><td class="FileContents-lineContents" id="89"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="90" onclick="window.location.hash='#90'"></td><td class="FileContents-lineContents" id="90"><span class="pln">  </span><span class="com">/* OMX related */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="91" onclick="window.location.hash='#91'"></td><td class="FileContents-lineContents" id="91"><span class="pln">  OMX_HANDLETYPE omx_handle</span><span class="pun">;</span><span class="pln">                      </span><span class="com">/* handle to omx engine */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="92" onclick="window.location.hash='#92'"></td><td class="FileContents-lineContents" id="92"><span class="pln">  OMX_CALLBACKTYPE omx_callbacks</span><span class="pun">;</span><span class="pln">                 </span><span class="com">/* callbacks to omx engine */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="93" onclick="window.location.hash='#93'"></td><td class="FileContents-lineContents" id="93"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="94" onclick="window.location.hash='#94'"></td><td class="FileContents-lineContents" id="94"><span class="pln">  </span><span class="com">/* buffer headers */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="95" onclick="window.location.hash='#95'"></td><td class="FileContents-lineContents" id="95"><span class="pln">  OMX_BUFFERHEADERTYPE </span><span class="pun">*</span><span class="pln">p_in_omx_buf</span><span class="pun">[</span><span class="pln">MM_JPEG_MAX_BUF</span><span class="pun">];</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="96" onclick="window.location.hash='#96'"></td><td class="FileContents-lineContents" id="96"><span class="pln">  OMX_BUFFERHEADERTYPE </span><span class="pun">*</span><span class="pln">p_in_omx_thumb_buf</span><span class="pun">[</span><span class="pln">MM_JPEG_MAX_BUF</span><span class="pun">];</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="97" onclick="window.location.hash='#97'"></td><td class="FileContents-lineContents" id="97"><span class="pln">  OMX_BUFFERHEADERTYPE </span><span class="pun">*</span><span class="pln">p_out_omx_buf</span><span class="pun">[</span><span class="pln">MM_JPEG_MAX_BUF</span><span class="pun">];</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="98" onclick="window.location.hash='#98'"></td><td class="FileContents-lineContents" id="98"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="99" onclick="window.location.hash='#99'"></td><td class="FileContents-lineContents" id="99"><span class="pln">  OMX_PARAM_PORTDEFINITIONTYPE inputPort</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="100" onclick="window.location.hash='#100'"></td><td class="FileContents-lineContents" id="100"><span class="pln">  OMX_PARAM_PORTDEFINITIONTYPE outputPort</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="101" onclick="window.location.hash='#101'"></td><td class="FileContents-lineContents" id="101"><span class="pln">  OMX_PARAM_PORTDEFINITIONTYPE inputTmbPort</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="102" onclick="window.location.hash='#102'"></td><td class="FileContents-lineContents" id="102"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="103" onclick="window.location.hash='#103'"></td><td class="FileContents-lineContents" id="103"><span class="pln">  </span><span class="com">/* event locks */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="104" onclick="window.location.hash='#104'"></td><td class="FileContents-lineContents" id="104"><span class="pln">  </span><span class="typ">pthread_mutex_t</span><span class="pln"> </span><span class="kwd">lock</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="105" onclick="window.location.hash='#105'"></td><td class="FileContents-lineContents" id="105"><span class="pln">  </span><span class="typ">pthread_cond_t</span><span class="pln"> cond</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="106" onclick="window.location.hash='#106'"></td><td class="FileContents-lineContents" id="106"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="107" onclick="window.location.hash='#107'"></td><td class="FileContents-lineContents" id="107"><span class="pln">  QEXIF_INFO_DATA exif_info_all</span><span class="pun">[</span><span class="pln">MAX_EXIF_TABLE_ENTRIES</span><span class="pun">];</span><span class="pln">  </span><span class="com">//all exif tags for JPEG encoder</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="108" onclick="window.location.hash='#108'"></td><td class="FileContents-lineContents" id="108"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="109" onclick="window.location.hash='#109'"></td><td class="FileContents-lineContents" id="109"><span class="pln">  </span><span class="typ">mm_jpeg_cirq_t</span><span class="pln"> cb_q</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="110" onclick="window.location.hash='#110'"></td><td class="FileContents-lineContents" id="110"><span class="pln">  </span><span class="typ">int32_t</span><span class="pln"> ebd_count</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="111" onclick="window.location.hash='#111'"></td><td class="FileContents-lineContents" id="111"><span class="pln">  </span><span class="typ">int32_t</span><span class="pln"> fbd_count</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="112" onclick="window.location.hash='#112'"></td><td class="FileContents-lineContents" id="112"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="113" onclick="window.location.hash='#113'"></td><td class="FileContents-lineContents" id="113"><span class="pln">  </span><span class="com">/* this flag represents whether the job is active */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="114" onclick="window.location.hash='#114'"></td><td class="FileContents-lineContents" id="114"><span class="pln">  OMX_BOOL active</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="115" onclick="window.location.hash='#115'"></td><td class="FileContents-lineContents" id="115"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="116" onclick="window.location.hash='#116'"></td><td class="FileContents-lineContents" id="116"><span class="pln">  </span><span class="com">/* this flag indicates if the configration is complete */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="117" onclick="window.location.hash='#117'"></td><td class="FileContents-lineContents" id="117"><span class="pln">  OMX_BOOL config</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="118" onclick="window.location.hash='#118'"></td><td class="FileContents-lineContents" id="118"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="119" onclick="window.location.hash='#119'"></td><td class="FileContents-lineContents" id="119"><span class="pln">  </span><span class="com">/* job history count to generate unique id */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="120" onclick="window.location.hash='#120'"></td><td class="FileContents-lineContents" id="120"><span class="pln">  </span><span class="kwd">int</span><span class="pln"> job_hist</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="121" onclick="window.location.hash='#121'"></td><td class="FileContents-lineContents" id="121"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="122" onclick="window.location.hash='#122'"></td><td class="FileContents-lineContents" id="122"><span class="pln">  OMX_BOOL encoding</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="123" onclick="window.location.hash='#123'"></td><td class="FileContents-lineContents" id="123"><span class="pun">}</span><span class="pln"> </span><span class="typ">mm_jpeg_job_session_t</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="124" onclick="window.location.hash='#124'"></td><td class="FileContents-lineContents" id="124"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="125" onclick="window.location.hash='#125'"></td><td class="FileContents-lineContents" id="125"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">struct</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="126" onclick="window.location.hash='#126'"></td><td class="FileContents-lineContents" id="126"><span class="pln">  </span><span class="typ">mm_jpeg_encode_job_t</span><span class="pln"> encode_job</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="127" onclick="window.location.hash='#127'"></td><td class="FileContents-lineContents" id="127"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> job_id</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="128" onclick="window.location.hash='#128'"></td><td class="FileContents-lineContents" id="128"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> client_handle</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="129" onclick="window.location.hash='#129'"></td><td class="FileContents-lineContents" id="129"><span class="pun">}</span><span class="pln"> </span><span class="typ">mm_jpeg_encode_job_info_t</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="130" onclick="window.location.hash='#130'"></td><td class="FileContents-lineContents" id="130"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="131" onclick="window.location.hash='#131'"></td><td class="FileContents-lineContents" id="131"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">struct</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="132" onclick="window.location.hash='#132'"></td><td class="FileContents-lineContents" id="132"><span class="pln">  </span><span class="typ">mm_jpeg_cmd_type_t</span><span class="pln"> type</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="133" onclick="window.location.hash='#133'"></td><td class="FileContents-lineContents" id="133"><span class="pln">  </span><span class="kwd">union</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="134" onclick="window.location.hash='#134'"></td><td class="FileContents-lineContents" id="134"><span class="pln">    </span><span class="typ">mm_jpeg_encode_job_info_t</span><span class="pln"> enc_info</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="135" onclick="window.location.hash='#135'"></td><td class="FileContents-lineContents" id="135"><span class="pln">  </span><span class="pun">};</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="136" onclick="window.location.hash='#136'"></td><td class="FileContents-lineContents" id="136"><span class="pun">}</span><span class="pln"> </span><span class="typ">mm_jpeg_job_q_node_t</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="137" onclick="window.location.hash='#137'"></td><td class="FileContents-lineContents" id="137"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="138" onclick="window.location.hash='#138'"></td><td class="FileContents-lineContents" id="138"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">struct</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="139" onclick="window.location.hash='#139'"></td><td class="FileContents-lineContents" id="139"><span class="pln">  </span><span class="typ">uint8_t</span><span class="pln"> is_used</span><span class="pun">;</span><span class="pln">                </span><span class="com">/* flag: if is a valid client */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="140" onclick="window.location.hash='#140'"></td><td class="FileContents-lineContents" id="140"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> client_handle</span><span class="pun">;</span><span class="pln">         </span><span class="com">/* client handle */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="141" onclick="window.location.hash='#141'"></td><td class="FileContents-lineContents" id="141"><span class="pln">  </span><span class="typ">mm_jpeg_job_session_t</span><span class="pln"> session</span><span class="pun">[</span><span class="pln">MM_JPEG_MAX_SESSION</span><span class="pun">];</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="142" onclick="window.location.hash='#142'"></td><td class="FileContents-lineContents" id="142"><span class="pln">  </span><span class="typ">pthread_mutex_t</span><span class="pln"> </span><span class="kwd">lock</span><span class="pun">;</span><span class="pln">           </span><span class="com">/* job lock */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="143" onclick="window.location.hash='#143'"></td><td class="FileContents-lineContents" id="143"><span class="pun">}</span><span class="pln"> </span><span class="typ">mm_jpeg_client_t</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="144" onclick="window.location.hash='#144'"></td><td class="FileContents-lineContents" id="144"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="145" onclick="window.location.hash='#145'"></td><td class="FileContents-lineContents" id="145"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">struct</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="146" onclick="window.location.hash='#146'"></td><td class="FileContents-lineContents" id="146"><span class="pln">  </span><span class="typ">pthread_t</span><span class="pln"> pid</span><span class="pun">;</span><span class="pln">                  </span><span class="com">/* job cmd thread ID */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="147" onclick="window.location.hash='#147'"></td><td class="FileContents-lineContents" id="147"><span class="pln">  </span><span class="typ">cam_semaphore_t</span><span class="pln"> job_sem</span><span class="pun">;</span><span class="pln">        </span><span class="com">/* semaphore for job cmd thread */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="148" onclick="window.location.hash='#148'"></td><td class="FileContents-lineContents" id="148"><span class="pln">  </span><span class="typ">mm_jpeg_queue_t</span><span class="pln"> job_queue</span><span class="pun">;</span><span class="pln">      </span><span class="com">/* queue for job to do */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="149" onclick="window.location.hash='#149'"></td><td class="FileContents-lineContents" id="149"><span class="pun">}</span><span class="pln"> </span><span class="typ">mm_jpeg_job_cmd_thread_t</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="150" onclick="window.location.hash='#150'"></td><td class="FileContents-lineContents" id="150"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="151" onclick="window.location.hash='#151'"></td><td class="FileContents-lineContents" id="151"><span class="com">#define</span><span class="pln"> MAX_JPEG_CLIENT_NUM </span><span class="lit">8</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="152" onclick="window.location.hash='#152'"></td><td class="FileContents-lineContents" id="152"><span class="kwd">typedef</span><span class="pln"> </span><span class="kwd">struct</span><span class="pln"> </span><span class="typ">mm_jpeg_obj_t</span><span class="pln"> </span><span class="pun">{</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="153" onclick="window.location.hash='#153'"></td><td class="FileContents-lineContents" id="153"><span class="pln">  </span><span class="com">/* ClientMgr */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="154" onclick="window.location.hash='#154'"></td><td class="FileContents-lineContents" id="154"><span class="pln">  </span><span class="kwd">int</span><span class="pln"> num_clients</span><span class="pun">;</span><span class="pln">                                </span><span class="com">/* num of clients */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="155" onclick="window.location.hash='#155'"></td><td class="FileContents-lineContents" id="155"><span class="pln">  </span><span class="typ">mm_jpeg_client_t</span><span class="pln"> clnt_mgr</span><span class="pun">[</span><span class="pln">MAX_JPEG_CLIENT_NUM</span><span class="pun">];</span><span class="pln"> </span><span class="com">/* client manager */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="156" onclick="window.location.hash='#156'"></td><td class="FileContents-lineContents" id="156"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="157" onclick="window.location.hash='#157'"></td><td class="FileContents-lineContents" id="157"><span class="pln">  </span><span class="com">/* JobMkr */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="158" onclick="window.location.hash='#158'"></td><td class="FileContents-lineContents" id="158"><span class="pln">  </span><span class="typ">pthread_mutex_t</span><span class="pln"> job_lock</span><span class="pun">;</span><span class="pln">                       </span><span class="com">/* job lock */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="159" onclick="window.location.hash='#159'"></td><td class="FileContents-lineContents" id="159"><span class="pln">  </span><span class="typ">mm_jpeg_job_cmd_thread_t</span><span class="pln"> job_mgr</span><span class="pun">;</span><span class="pln">               </span><span class="com">/* job mgr thread including todo_q*/</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="160" onclick="window.location.hash='#160'"></td><td class="FileContents-lineContents" id="160"><span class="pln">  </span><span class="typ">mm_jpeg_queue_t</span><span class="pln"> ongoing_job_q</span><span class="pun">;</span><span class="pln">                  </span><span class="com">/* queue for ongoing jobs */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="161" onclick="window.location.hash='#161'"></td><td class="FileContents-lineContents" id="161"><span class="pun">}</span><span class="pln"> mm_jpeg_obj</span><span class="pun">;</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="162" onclick="window.location.hash='#162'"></td><td class="FileContents-lineContents" id="162"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="163" onclick="window.location.hash='#163'"></td><td class="FileContents-lineContents" id="163"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_init</span><span class="pun">(</span><span class="pln">mm_jpeg_obj </span><span class="pun">*</span><span class="pln">my_obj</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="164" onclick="window.location.hash='#164'"></td><td class="FileContents-lineContents" id="164"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_deinit</span><span class="pun">(</span><span class="pln">mm_jpeg_obj </span><span class="pun">*</span><span class="pln">my_obj</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="165" onclick="window.location.hash='#165'"></td><td class="FileContents-lineContents" id="165"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">uint32_t</span><span class="pln"> mm_jpeg_new_client</span><span class="pun">(</span><span class="pln">mm_jpeg_obj </span><span class="pun">*</span><span class="pln">my_obj</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="166" onclick="window.location.hash='#166'"></td><td class="FileContents-lineContents" id="166"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_start_job</span><span class="pun">(</span><span class="pln">mm_jpeg_obj </span><span class="pun">*</span><span class="pln">my_obj</span><span class="pun">,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="167" onclick="window.location.hash='#167'"></td><td class="FileContents-lineContents" id="167"><span class="pln">  </span><span class="typ">mm_jpeg_job_t</span><span class="pun">*</span><span class="pln"> job</span><span class="pun">,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="168" onclick="window.location.hash='#168'"></td><td class="FileContents-lineContents" id="168"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pun">*</span><span class="pln"> jobId</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="169" onclick="window.location.hash='#169'"></td><td class="FileContents-lineContents" id="169"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_abort_job</span><span class="pun">(</span><span class="pln">mm_jpeg_obj </span><span class="pun">*</span><span class="pln">my_obj</span><span class="pun">,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="170" onclick="window.location.hash='#170'"></td><td class="FileContents-lineContents" id="170"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> jobId</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="171" onclick="window.location.hash='#171'"></td><td class="FileContents-lineContents" id="171"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_close</span><span class="pun">(</span><span class="pln">mm_jpeg_obj </span><span class="pun">*</span><span class="pln">my_obj</span><span class="pun">,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="172" onclick="window.location.hash='#172'"></td><td class="FileContents-lineContents" id="172"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> client_hdl</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="173" onclick="window.location.hash='#173'"></td><td class="FileContents-lineContents" id="173"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_create_session</span><span class="pun">(</span><span class="pln">mm_jpeg_obj </span><span class="pun">*</span><span class="pln">my_obj</span><span class="pun">,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="174" onclick="window.location.hash='#174'"></td><td class="FileContents-lineContents" id="174"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> client_hdl</span><span class="pun">,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="175" onclick="window.location.hash='#175'"></td><td class="FileContents-lineContents" id="175"><span class="pln">  </span><span class="typ">mm_jpeg_encode_params_t</span><span class="pln"> </span><span class="pun">*</span><span class="pln">p_params</span><span class="pun">,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="176" onclick="window.location.hash='#176'"></td><td class="FileContents-lineContents" id="176"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pun">*</span><span class="pln"> p_session_id</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="177" onclick="window.location.hash='#177'"></td><td class="FileContents-lineContents" id="177"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_destroy_session_by_id</span><span class="pun">(</span><span class="pln">mm_jpeg_obj </span><span class="pun">*</span><span class="pln">my_obj</span><span class="pun">,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="178" onclick="window.location.hash='#178'"></td><td class="FileContents-lineContents" id="178"><span class="pln">  </span><span class="typ">uint32_t</span><span class="pln"> session_id</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="179" onclick="window.location.hash='#179'"></td><td class="FileContents-lineContents" id="179"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="180" onclick="window.location.hash='#180'"></td><td class="FileContents-lineContents" id="180"><span class="com">/* utiltity fucntion declared in mm-camera-inteface2.c</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="181" onclick="window.location.hash='#181'"></td><td class="FileContents-lineContents" id="181"><span class="com"> * and need be used by mm-camera and below*/</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="182" onclick="window.location.hash='#182'"></td><td class="FileContents-lineContents" id="182"><span class="typ">uint32_t</span><span class="pln"> mm_jpeg_util_generate_handler</span><span class="pun">(</span><span class="typ">uint8_t</span><span class="pln"> index</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="183" onclick="window.location.hash='#183'"></td><td class="FileContents-lineContents" id="183"><span class="typ">uint8_t</span><span class="pln"> mm_jpeg_util_get_index_by_handler</span><span class="pun">(</span><span class="typ">uint32_t</span><span class="pln"> handler</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="184" onclick="window.location.hash='#184'"></td><td class="FileContents-lineContents" id="184"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="185" onclick="window.location.hash='#185'"></td><td class="FileContents-lineContents" id="185"><span class="com">/* basic queue functions */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="186" onclick="window.location.hash='#186'"></td><td class="FileContents-lineContents" id="186"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_queue_init</span><span class="pun">(</span><span class="typ">mm_jpeg_queue_t</span><span class="pun">*</span><span class="pln"> queue</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="187" onclick="window.location.hash='#187'"></td><td class="FileContents-lineContents" id="187"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_queue_enq</span><span class="pun">(</span><span class="typ">mm_jpeg_queue_t</span><span class="pun">*</span><span class="pln"> queue</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">void</span><span class="pun">*</span><span class="pln"> node</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="188" onclick="window.location.hash='#188'"></td><td class="FileContents-lineContents" id="188"><span class="kwd">extern</span><span class="pln"> </span><span class="kwd">void</span><span class="pun">*</span><span class="pln"> mm_jpeg_queue_deq</span><span class="pun">(</span><span class="typ">mm_jpeg_queue_t</span><span class="pun">*</span><span class="pln"> queue</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="189" onclick="window.location.hash='#189'"></td><td class="FileContents-lineContents" id="189"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_queue_deinit</span><span class="pun">(</span><span class="typ">mm_jpeg_queue_t</span><span class="pun">*</span><span class="pln"> queue</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="190" onclick="window.location.hash='#190'"></td><td class="FileContents-lineContents" id="190"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> mm_jpeg_queue_flush</span><span class="pun">(</span><span class="typ">mm_jpeg_queue_t</span><span class="pun">*</span><span class="pln"> queue</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="191" onclick="window.location.hash='#191'"></td><td class="FileContents-lineContents" id="191"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">uint32_t</span><span class="pln"> mm_jpeg_queue_get_size</span><span class="pun">(</span><span class="typ">mm_jpeg_queue_t</span><span class="pun">*</span><span class="pln"> queue</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="192" onclick="window.location.hash='#192'"></td><td class="FileContents-lineContents" id="192"><span class="kwd">extern</span><span class="pln"> </span><span class="kwd">void</span><span class="pun">*</span><span class="pln"> mm_jpeg_queue_peek</span><span class="pun">(</span><span class="typ">mm_jpeg_queue_t</span><span class="pun">*</span><span class="pln"> queue</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="193" onclick="window.location.hash='#193'"></td><td class="FileContents-lineContents" id="193"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> addExifEntry</span><span class="pun">(</span><span class="pln">QOMX_EXIF_INFO </span><span class="pun">*</span><span class="pln">p_exif_info</span><span class="pun">,</span><span class="pln"> </span><span class="typ">exif_tag_id_t</span><span class="pln"> tagid</span><span class="pun">,</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="194" onclick="window.location.hash='#194'"></td><td class="FileContents-lineContents" id="194"><span class="pln">  </span><span class="typ">exif_tag_type_t</span><span class="pln"> type</span><span class="pun">,</span><span class="pln"> </span><span class="typ">uint32_t</span><span class="pln"> count</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> </span><span class="pun">*</span><span class="pln">data</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="195" onclick="window.location.hash='#195'"></td><td class="FileContents-lineContents" id="195"><span class="kwd">extern</span><span class="pln"> </span><span class="typ">int32_t</span><span class="pln"> releaseExifEntry</span><span class="pun">(</span><span class="pln">QOMX_EXIF_INFO </span><span class="pun">*</span><span class="pln">p_exif_info</span><span class="pun">);</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="196" onclick="window.location.hash='#196'"></td><td class="FileContents-lineContents" id="196"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="197" onclick="window.location.hash='#197'"></td><td class="FileContents-lineContents" id="197"><span class="com">#endif</span><span class="pln"> </span><span class="com">/* MM_JPEG_H_ */</span></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="198" onclick="window.location.hash='#198'"></td><td class="FileContents-lineContents" id="198"></td></tr><tr class="u-pre u-monospace FileContents-line"><td class="u-lineNum u-noSelect FileContents-lineNum" data-line-number="199" onclick="window.location.hash='#199'"></td><td class="FileContents-lineContents" id="199"></td></tr></table></div> <!-- Container --></div> <!-- Site-content --><footer class="Site-footer"><div class="Footer"><span class="Footer-poweredBy">Powered by <a href="https://gerrit.googlesource.com/gitiles/">Gitiles</a>| <a href="https://policies.google.com/privacy">Privacy</a></span><span class="Footer-formats"><a class="u-monospace Footer-formatsItem" href="?format=TEXT">txt</a> <a class="u-monospace Footer-formatsItem" href="?format=JSON">json</a></span></div></footer></body></html>
+/* Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above
+ *       copyright notice, this list of conditions and the following
+ *       disclaimer in the documentation and/or other materials provided
+ *       with the distribution.
+ *     * Neither the name of The Linux Foundation nor the names of its
+ *       contributors may be used to endorse or promote products derived
+ *       from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+ * BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
+
+#ifndef MM_JPEG_H_
+#define MM_JPEG_H_
+
+#include <cam_semaphore.h>
+#include "mm_jpeg_interface.h"
+#include "cam_list.h"
+#include "OMX_Types.h"
+#include "OMX_Index.h"
+#include "OMX_Core.h"
+#include "OMX_Component.h"
+#include "QOMX_JpegExtensions.h"
+#include "mm_jpeg_ionbuf.h"
+
+#define MM_JPEG_MAX_THREADS 30
+#define MM_JPEG_CIRQ_SIZE 30
+#define MM_JPEG_MAX_SESSION 10
+#define MAX_EXIF_TABLE_ENTRIES 50
+#define MAX_JPEG_SIZE 20000000
+#define MAX_OMX_HANDLES (5)
+
+
+/** mm_jpeg_abort_state_t:
+ *  @MM_JPEG_ABORT_NONE: Abort is not issued
+ *  @MM_JPEG_ABORT_INIT: Abort is issued from the client
+ *  @MM_JPEG_ABORT_DONE: Abort is completed
+ *
+ *  State representing the abort state
+ **/
+typedef enum {
+  MM_JPEG_ABORT_NONE,
+  MM_JPEG_ABORT_INIT,
+  MM_JPEG_ABORT_DONE,
+} mm_jpeg_abort_state_t;
+
+
+/* define max num of supported concurrent jpeg jobs by OMX engine.
+ * Current, only one per time */
+#define NUM_MAX_JPEG_CNCURRENT_JOBS 2
+
+#define JOB_ID_MAGICVAL 0x1
+#define JOB_HIST_MAX 10000
+
+/** DUMP_TO_FILE:
+ *  @filename: file name
+ *  @p_addr: address of the buffer
+ *  @len: buffer length
+ *
+ *  dump the image to the file
+ **/
+#define DUMP_TO_FILE(filename, p_addr, len) ({ \
+  size_t rc = 0; \
+  FILE *fp = fopen(filename, "w+"); \
+  if (fp) { \
+    rc = fwrite(p_addr, 1, len, fp); \
+    CDBG_ERROR("%s:%d] written size %zu", __func__, __LINE__, len); \
+    fclose(fp); \
+  } else { \
+    CDBG_ERROR("%s:%d] open %s failed", __func__, __LINE__, filename); \
+  } \
+})
+
+/** DUMP_TO_FILE2:
+ *  @filename: file name
+ *  @p_addr: address of the buffer
+ *  @len: buffer length
+ *
+ *  dump the image to the file if the memory is non-contiguous
+ **/
+#define DUMP_TO_FILE2(filename, p_addr1, len1, paddr2, len2) ({ \
+  size_t rc = 0; \
+  FILE *fp = fopen(filename, "w+"); \
+  if (fp) { \
+    rc = fwrite(p_addr1, 1, len1, fp); \
+    rc = fwrite(p_addr2, 1, len2, fp); \
+    CDBG_ERROR("%s:%d] written %zu %zu", __func__, __LINE__, len1, len2); \
+    fclose(fp); \
+  } else { \
+    CDBG_ERROR("%s:%d] open %s failed", __func__, __LINE__, filename); \
+  } \
+})
+
+/** MM_JPEG_CHK_ABORT:
+ *  @p: client pointer
+ *  @ret: return value
+ *  @label: label to jump to
+ *
+ *  check the abort failure
+ **/
+#define MM_JPEG_CHK_ABORT(p, ret, label) ({ \
+  if (MM_JPEG_ABORT_INIT == p->abort_state) { \
+    CDBG_ERROR("%s:%d] jpeg abort", __func__, __LINE__); \
+    ret = OMX_ErrorNone; \
+    goto label; \
+  } \
+})
+
+#define GET_CLIENT_IDX(x) ((x) & 0xff)
+#define GET_SESSION_IDX(x) (((x) >> 8) & 0xff)
+#define GET_JOB_IDX(x) (((x) >> 16) & 0xff)
+
+typedef struct {
+  union {
+    int i_data[MM_JPEG_CIRQ_SIZE];
+    void *p_data[MM_JPEG_CIRQ_SIZE];
+  };
+  int front;
+  int rear;
+  int count;
+  pthread_mutex_t lock;
+} mm_jpeg_cirq_t;
+
+/** cirq_reset:
+ *
+ *  Arguments:
+ *    @q: circular queue
+ *
+ *  Return:
+ *       none
+ *
+ *  Description:
+ *       Resets the circular queue
+ *
+ **/
+static inline void cirq_reset(mm_jpeg_cirq_t *q)
+{
+  q->front = 0;
+  q->rear = 0;
+  q->count = 0;
+  pthread_mutex_init(&q->lock, NULL);
+}
+
+/** cirq_empty:
+ *
+ *  Arguments:
+ *    @q: circular queue
+ *
+ *  Return:
+ *       none
+ *
+ *  Description:
+ *       check if the curcular queue is empty
+ *
+ **/
+#define cirq_empty(q) (q->count == 0)
+
+/** cirq_full:
+ *
+ *  Arguments:
+ *    @q: circular queue
+ *
+ *  Return:
+ *       none
+ *
+ *  Description:
+ *       check if the curcular queue is full
+ *
+ **/
+#define cirq_full(q) (q->count == MM_JPEG_CIRQ_SIZE)
+
+/** cirq_enqueue:
+ *
+ *  Arguments:
+ *    @q: circular queue
+ *    @data: data to be inserted
+ *
+ *  Return:
+ *       true/false
+ *
+ *  Description:
+ *       enqueue an element into circular queue
+ *
+ **/
+#define cirq_enqueue(q, type, data) ({ \
+  int rc = 0; \
+  pthread_mutex_lock(&q->lock); \
+  if (cirq_full(q)) { \
+    rc = -1; \
+  } else { \
+    q->type[q->rear] = data; \
+    q->rear = (q->rear + 1) % MM_JPEG_CIRQ_SIZE; \
+    q->count++; \
+  } \
+  pthread_mutex_unlock(&q->lock); \
+  rc; \
+})
+
+/** cirq_dequeue:
+ *
+ *  Arguments:
+ *    @q: circular queue
+ *    @data: data to be popped
+ *
+ *  Return:
+ *       true/false
+ *
+ *  Description:
+ *       dequeue an element from the circular queue
+ *
+ **/
+#define cirq_dequeue(q, type, data) ({ \
+  int rc = 0; \
+  pthread_mutex_lock(&q->lock); \
+  if (cirq_empty(q)) { \
+    pthread_mutex_unlock(&q->lock); \
+    rc = -1; \
+  } else { \
+    data = q->type[q->front]; \
+    q->count--; \
+  } \
+  pthread_mutex_unlock(&q->lock); \
+  rc; \
+})
+
+
+typedef union {
+  uint32_t u32;
+  void* p;
+} mm_jpeg_q_data_t;
+
+  typedef struct {
+  struct cam_list list;
+  mm_jpeg_q_data_t data;
+} mm_jpeg_q_node_t;
+
+typedef struct {
+  mm_jpeg_q_node_t head; /* dummy head */
+  uint32_t size;
+  pthread_mutex_t lock;
+} mm_jpeg_queue_t;
+
+typedef enum {
+  MM_JPEG_CMD_TYPE_JOB,          /* job cmd */
+  MM_JPEG_CMD_TYPE_EXIT,         /* EXIT cmd for exiting jobMgr thread */
+  MM_JPEG_CMD_TYPE_DECODE_JOB,
+  MM_JPEG_CMD_TYPE_MAX
+} mm_jpeg_cmd_type_t;
+
+typedef struct mm_jpeg_job_session {
+  uint32_t client_hdl;           /* client handler */
+  uint32_t jobId;                /* job ID */
+  uint32_t sessionId;            /* session ID */
+  mm_jpeg_encode_params_t params; /* encode params */
+  mm_jpeg_decode_params_t dec_params; /* encode params */
+  mm_jpeg_encode_job_t encode_job;             /* job description */
+  mm_jpeg_decode_job_t decode_job;
+  pthread_t encode_pid;          /* encode thread handler*/
+
+  void *jpeg_obj;                /* ptr to mm_jpeg_obj */
+  jpeg_job_status_t job_status;  /* job status */
+
+  int state_change_pending;      /* flag to indicate if state change is pending */
+  OMX_ERRORTYPE error_flag;      /* variable to indicate error during encoding */
+  mm_jpeg_abort_state_t abort_state; /* variable to indicate abort during encoding */
+
+  /* OMX related */
+  OMX_HANDLETYPE omx_handle;                      /* handle to omx engine */
+  OMX_CALLBACKTYPE omx_callbacks;                 /* callbacks to omx engine */
+
+  /* buffer headers */
+  OMX_BUFFERHEADERTYPE *p_in_omx_buf[MM_JPEG_MAX_BUF];
+  OMX_BUFFERHEADERTYPE *p_in_omx_thumb_buf[MM_JPEG_MAX_BUF];
+  OMX_BUFFERHEADERTYPE *p_out_omx_buf[MM_JPEG_MAX_BUF];
+
+  OMX_PARAM_PORTDEFINITIONTYPE inputPort;
+  OMX_PARAM_PORTDEFINITIONTYPE outputPort;
+  OMX_PARAM_PORTDEFINITIONTYPE inputTmbPort;
+
+  /* event locks */
+  pthread_mutex_t lock;
+  pthread_cond_t cond;
+
+  QEXIF_INFO_DATA exif_info_local[MAX_EXIF_TABLE_ENTRIES];  //all exif tags for JPEG encoder
+  int exif_count_local;
+
+  mm_jpeg_cirq_t cb_q;
+  int32_t ebd_count;
+  int32_t fbd_count;
+
+  /* this flag represents whether the job is active */
+  OMX_BOOL active;
+
+  /* this flag indicates if the configration is complete */
+  OMX_BOOL config;
+
+  /* job history count to generate unique id */
+  unsigned int job_hist;
+
+  OMX_BOOL encoding;
+
+  buffer_t work_buffer;
+
+  OMX_EVENTTYPE omxEvent;
+  int event_pending;
+
+  uint8_t *meta_enc_key;
+  size_t meta_enc_keylen;
+
+  struct mm_jpeg_job_session *next_session;
+
+  uint32_t curr_out_buf_idx;
+
+  uint32_t num_omx_sessions;
+  OMX_BOOL auto_out_buf;
+
+  mm_jpeg_queue_t *session_handle_q;
+  mm_jpeg_queue_t *out_buf_q;
+
+  uint32_t job_index;
+} mm_jpeg_job_session_t;
+
+typedef struct {
+  mm_jpeg_encode_job_t encode_job;
+  uint32_t job_id;
+  uint32_t client_handle;
+} mm_jpeg_encode_job_info_t;
+
+typedef struct {
+  mm_jpeg_decode_job_t decode_job;
+  uint32_t job_id;
+  uint32_t client_handle;
+} mm_jpeg_decode_job_info_t;
+
+typedef struct {
+  mm_jpeg_cmd_type_t type;
+  union {
+    mm_jpeg_encode_job_info_t enc_info;
+    mm_jpeg_decode_job_info_t dec_info;
+  };
+} mm_jpeg_job_q_node_t;
+
+typedef struct {
+  uint8_t is_used;                /* flag: if is a valid client */
+  uint32_t client_handle;         /* client handle */
+  mm_jpeg_job_session_t session[MM_JPEG_MAX_SESSION];
+  pthread_mutex_t lock;           /* job lock */
+} mm_jpeg_client_t;
+
+typedef struct {
+  pthread_t pid;                  /* job cmd thread ID */
+  cam_semaphore_t job_sem;        /* semaphore for job cmd thread */
+  mm_jpeg_queue_t job_queue;      /* queue for job to do */
+} mm_jpeg_job_cmd_thread_t;
+
+#define MAX_JPEG_CLIENT_NUM 8
+typedef struct mm_jpeg_obj_t {
+  /* ClientMgr */
+  int num_clients;                                /* num of clients */
+  mm_jpeg_client_t clnt_mgr[MAX_JPEG_CLIENT_NUM]; /* client manager */
+
+  /* JobMkr */
+  pthread_mutex_t job_lock;                       /* job lock */
+  mm_jpeg_job_cmd_thread_t job_mgr;               /* job mgr thread including todo_q*/
+  mm_jpeg_queue_t ongoing_job_q;                  /* queue for ongoing jobs */
+  buffer_t ionBuffer[MM_JPEG_CONCURRENT_SESSIONS_COUNT];
+
+
+  /* Max pic dimension for work buf calc*/
+  uint32_t max_pic_w;
+  uint32_t max_pic_h;
+
+  /* previous work buffer dimensions */
+  uint32_t prev_w;
+  uint32_t prev_h;
+
+  uint32_t work_buf_cnt;
+
+  uint32_t num_sessions;
+
+} mm_jpeg_obj;
+
+/** mm_jpeg_pending_func_t:
+ *
+ * Intermediate function for transition change
+ **/
+typedef OMX_ERRORTYPE (*mm_jpeg_transition_func_t)(void *);
+
+extern int32_t mm_jpeg_init(mm_jpeg_obj *my_obj);
+extern int32_t mm_jpeg_deinit(mm_jpeg_obj *my_obj);
+extern uint32_t mm_jpeg_new_client(mm_jpeg_obj *my_obj);
+extern int32_t mm_jpeg_start_job(mm_jpeg_obj *my_obj,
+  mm_jpeg_job_t* job,
+  uint32_t* jobId);
+extern int32_t mm_jpeg_abort_job(mm_jpeg_obj *my_obj,
+  uint32_t jobId);
+extern int32_t mm_jpeg_close(mm_jpeg_obj *my_obj,
+  uint32_t client_hdl);
+extern int32_t mm_jpeg_create_session(mm_jpeg_obj *my_obj,
+  uint32_t client_hdl,
+  mm_jpeg_encode_params_t *p_params,
+  uint32_t* p_session_id);
+extern int32_t mm_jpeg_destroy_session_by_id(mm_jpeg_obj *my_obj,
+  uint32_t session_id);
+
+extern int32_t mm_jpegdec_init(mm_jpeg_obj *my_obj);
+extern int32_t mm_jpegdec_deinit(mm_jpeg_obj *my_obj);
+extern int32_t mm_jpeg_jobmgr_thread_release(mm_jpeg_obj * my_obj);
+extern int32_t mm_jpeg_jobmgr_thread_launch(mm_jpeg_obj *my_obj);
+extern int32_t mm_jpegdec_start_decode_job(mm_jpeg_obj *my_obj,
+  mm_jpeg_job_t* job,
+  uint32_t* jobId);
+
+extern int32_t mm_jpegdec_create_session(mm_jpeg_obj *my_obj,
+  uint32_t client_hdl,
+  mm_jpeg_decode_params_t *p_params,
+  uint32_t* p_session_id);
+
+extern int32_t mm_jpegdec_destroy_session_by_id(mm_jpeg_obj *my_obj,
+  uint32_t session_id);
+
+extern int32_t mm_jpegdec_abort_job(mm_jpeg_obj *my_obj,
+  uint32_t jobId);
+
+int32_t mm_jpegdec_process_decoding_job(mm_jpeg_obj *my_obj,
+    mm_jpeg_job_q_node_t* job_node);
+
+/* utiltity fucntion declared in mm-camera-inteface2.c
+ * and need be used by mm-camera and below*/
+uint32_t mm_jpeg_util_generate_handler(uint8_t index);
+uint8_t mm_jpeg_util_get_index_by_handler(uint32_t handler);
+
+/* basic queue functions */
+extern int32_t mm_jpeg_queue_init(mm_jpeg_queue_t* queue);
+extern int32_t mm_jpeg_queue_enq(mm_jpeg_queue_t* queue,
+    mm_jpeg_q_data_t data);
+extern int32_t mm_jpeg_queue_enq_head(mm_jpeg_queue_t* queue,
+    mm_jpeg_q_data_t data);
+extern mm_jpeg_q_data_t mm_jpeg_queue_deq(mm_jpeg_queue_t* queue);
+extern int32_t mm_jpeg_queue_deinit(mm_jpeg_queue_t* queue);
+extern int32_t mm_jpeg_queue_flush(mm_jpeg_queue_t* queue);
+extern uint32_t mm_jpeg_queue_get_size(mm_jpeg_queue_t* queue);
+extern mm_jpeg_q_data_t mm_jpeg_queue_peek(mm_jpeg_queue_t* queue);
+extern int32_t addExifEntry(QOMX_EXIF_INFO *p_exif_info, exif_tag_id_t tagid,
+  exif_tag_type_t type, uint32_t count, void *data);
+extern int32_t releaseExifEntry(QEXIF_INFO_DATA *p_exif_data);
+extern int process_meta_data(cam_metadata_info_t *p_meta,
+  QOMX_EXIF_INFO *exif_info, mm_jpeg_exif_params_t *p_cam3a_params);
+
+OMX_ERRORTYPE mm_jpeg_session_change_state(mm_jpeg_job_session_t* p_session,
+  OMX_STATETYPE new_state,
+  mm_jpeg_transition_func_t p_exec);
+
+int map_jpeg_format(mm_jpeg_color_format color_fmt);
+
+OMX_BOOL mm_jpeg_session_abort(mm_jpeg_job_session_t *p_session);
+/**
+ *
+ * special queue functions for job queue
+ **/
+mm_jpeg_job_q_node_t* mm_jpeg_queue_remove_job_by_client_id(
+  mm_jpeg_queue_t* queue, uint32_t client_hdl);
+mm_jpeg_job_q_node_t* mm_jpeg_queue_remove_job_by_job_id(
+  mm_jpeg_queue_t* queue, uint32_t job_id);
+mm_jpeg_job_q_node_t* mm_jpeg_queue_remove_job_by_session_id(
+  mm_jpeg_queue_t* queue, uint32_t session_id);
+mm_jpeg_job_q_node_t* mm_jpeg_queue_remove_job_unlk(
+  mm_jpeg_queue_t* queue, uint32_t job_id);
+
+
+/** mm_jpeg_queue_func_t:
+ *
+ * Intermediate function for queue operation
+ **/
+typedef void (*mm_jpeg_queue_func_t)(void *);
+
+
+#endif /* MM_JPEG_H_ */
+
+

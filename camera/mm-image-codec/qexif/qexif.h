@@ -1,4 +1,5 @@
 /*Copyright (c) 2012, The Linux Foundation. All rights reserved.
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
@@ -11,6 +12,7 @@ met:
     * Neither the name of The Linux Foundation nor the names of its
       contributors may be used to endorse or promote products derived
       from this software without specific prior written permission.
+
 THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
 WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
@@ -22,26 +24,37 @@ BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.*/
+
+
 #ifndef __QEXIF_H__
 #define __QEXIF_H__
+
 #include <stdio.h>
+
 /* Exif Info (opaque definition) */
 struct exif_info_t;
 typedef struct exif_info_t * exif_info_obj_t;
+
 /* Exif Tag ID */
 typedef uint32_t exif_tag_id_t;
+
+
 /* Exif Rational Data Type */
 typedef struct
 {
     uint32_t  num;    // Numerator
     uint32_t  denom;  // Denominator
+
 } rat_t;
+
 /* Exif Signed Rational Data Type */
 typedef struct
 {
     int32_t  num;    // Numerator
     int32_t  denom;  // Denominator
+
 } srat_t;
+
 /* Exif Tag Data Type */
 typedef enum
 {
@@ -54,6 +67,7 @@ typedef enum
     EXIF_SLONG     = 9,
     EXIF_SRATIONAL = 10
 } exif_tag_type_t;
+
 /* Exif Tag Entry
  * Used in exif_set_tag as an input argument and
  * in exif_get_tag as an output argument. */
@@ -62,6 +76,7 @@ typedef struct
     /* The Data Type of the Tag *
      * Rational, etc */
     exif_tag_type_t type;
+
     /* Copy
      * This field is used when a user pass this structure to
      * be stored in an exif_info_t via the exif_set_tag method.
@@ -74,6 +89,7 @@ typedef struct
      * is destroyed.
      */
     uint8_t copy;
+
     /* Data count
      * This indicates the number of elements of the data. For example, if
      * the type is EXIF_BYTE and the count is 1, that means the actual data
@@ -84,6 +100,7 @@ typedef struct
      * the length of the array.
      */
     uint32_t count;
+
     /* Data
      * A union which covers all possible data types. The user should pick
      * the right field to use depending on the data type and the count.
@@ -105,8 +122,11 @@ typedef struct
         int32_t    _slong;      // EXIF_SLONG (count = 1)
         srat_t    *_srats;      // EXIF_SRATIONAL (count > 1)
         srat_t     _srat;       // EXIF_SRATIONAL (count = 1)
+
     } data;
+
 } exif_tag_entry_t;
+
 /* =======================================================================
 **                          Macro Definitions
 ** ======================================================================= */
@@ -146,6 +166,7 @@ typedef enum
     GPS_AREAINFORMATION,
     GPS_DATESTAMP,
     GPS_DIFFERENTIAL,
+
     // TIFF IFD
     NEW_SUBFILE_TYPE,
     SUBFILE_TYPE,
@@ -226,6 +247,8 @@ typedef enum
     EXIF_IFD,
     ICC_PROFILE,
     GPS_IFD,
+
+
     // TIFF IFD (Thumbnail)
     TN_IMAGE_WIDTH,
     TN_IMAGE_LENGTH,
@@ -257,6 +280,7 @@ typedef enum
     TN_YCBCR_POSITIONING,
     TN_REFERENCE_BLACK_WHITE,
     TN_COPYRIGHT,
+
     // EXIF IFD
     EXPOSURE_TIME,
     F_NUMBER,
@@ -316,10 +340,14 @@ typedef enum
     SUBJECT_DISTANCE_RANGE,
     IMAGE_UID,
     PIM,
+
     EXIF_TAG_MAX_OFFSET
+
 } exif_tag_offset_t;
+
 /* Below are the supported Tags (ID and structure for their data) */
 #define CONSTRUCT_TAGID(offset,ID) (offset << 16 | ID)
+
 // GPS tag version
 // Use EXIFTAGTYPE_GPS_VERSION_ID as the exif_tag_type (EXIF_BYTE)
 // Count should be 4
@@ -591,6 +619,7 @@ typedef enum
 #define EXIFTAGID_PHOTOMETRIC_INTERPRETATION \
   CONSTRUCT_TAGID(PHOTOMETRIC_INTERPRETATION, _ID_PHOTOMETRIC_INTERPRETATION)
 #define EXIFTAGTYPE_PHOTOMETRIC_INTERPRETATION EXIF_SHORT
+
 // Thresholding
 // Use EXIFTAGTYPE_THRESH_HOLDING as the exif_tag_type (EXIF_SHORT)
 //
@@ -601,6 +630,7 @@ typedef enum
 #define EXIFTAGID_THRESH_HOLDING \
   CONSTRUCT_TAGID(THRESH_HOLDING, _ID_THRESH_HOLDING)
 #define EXIFTAGTYPE_THRESH_HOLDING EXIF_SHORT
+
 // Cell Width
 // Use EXIFTAGTYPE_CELL_WIDTH as the exif_tag_type (EXIF_SHORT)
 //
@@ -620,12 +650,14 @@ typedef enum
 #define _ID_FILL_ORDER 0x010A
 #define EXIFTAGID_FILL_ORDER CONSTRUCT_TAGID(FILL_ORDER, _ID_FILL_ORDER)
 #define EXIFTAGTYPE_FILL_ORDER EXIF_SHORT
+
 // DOCUMENT NAME
 // Use EXIFTAGTYPE_DOCUMENT_NAME as the exif_tag_type (EXIF_ASCII)
 //
 #define _ID_DOCUMENT_NAME 0x010D
 #define EXIFTAGID_DOCUMENT_NAME CONSTRUCT_TAGID(DOCUMENT_NAME, _ID_DOCUMENT_NAME)
 #define EXIFTAGTYPE_DOCUMENT_NAME EXIF_ASCII
+
 // Image title
 // Use EXIFTAGTYPE_IMAGE_DESCRIPTION as the exif_tag_type (EXIF_ASCII)
 // Count can be any
@@ -692,6 +724,7 @@ typedef enum
 #define _ID_MAX_SAMPLE_VALUE 0x0119
 #define EXIFTAGID_MAX_SAMPLE_VALUE CONSTRUCT_TAGID(MAX_SAMPLE_VALUE, _ID_MAX_SAMPLE_VALUE)
 #define EXIFTAGTYPE_MAX_SAMPLE_VALUE EXIF_SHORT
+
 // Image resolution in width direction
 // Use EXIFTAGTYPE_X_RESOLUTION as the exif_tag_type (EXIF_RATIONAL)
 // Count should be 1
@@ -731,6 +764,7 @@ typedef enum
 #define _ID_Y_POSITION 0x011f
 #define EXIFTAGID_Y_POSITION CONSTRUCT_TAGID(Y_POSITION, _ID_Y_POSITION)
 #define EXIFTAGTYPE_Y_POSITION EXIF_RATIONAL
+
 // FREE_OFFSET
 // Use EXIFTAGTYPE_FREE_OFFSET as the exif_tag_type (EXIF_LONG)
 //
@@ -744,6 +778,7 @@ typedef enum
 #define EXIFTAGID_FREE_BYTE_COUNTS \
   CONSTRUCT_TAGID(FREE_BYTE_COUNTS, _ID_FREE_BYTE_COUNTS)
 #define EXIFTAGTYPE_FREE_BYTE_COUNTS EXIF_LONG
+
 // GrayResponseUnit
 // Use EXIFTAGTYPE_GRAY_RESPONSE_UNIT as the exif_tag_type (EXIF_SHORT)
 //
@@ -758,6 +793,7 @@ typedef enum
 #define EXIFTAGID_GRAY_RESPONSE_CURVE \
   CONSTRUCT_TAGID(GRAY_RESPONSE_CURVE , _ID_GRAY_RESPONSE_CURVE )
 #define EXIFTAGTYPE_GRAY_RESPONSE_CURVE EXIF_SHORT
+
 // T4_OPTION
 // Use EXIFTAGTYPE_T4_OPTION as the exif_tag_type (EXIF_LONG)
 //
@@ -770,6 +806,7 @@ typedef enum
 #define _ID_T6_OPTION 0x0125
 #define EXIFTAGID_T6_OPTION CONSTRUCT_TAGID(T6_OPTION, _ID_T6_OPTION)
 #define EXIFTAGTYPE_T6_OPTION EXIF_LONG
+
 // Unit of X and Y resolution
 // Use EXIFTAGTYPE_RESOLUTION_UNIT as the exif_tag_type (EXIF_SHORT)
 // Count should be 1
@@ -777,6 +814,7 @@ typedef enum
 #define EXIFTAGID_RESOLUTION_UNIT \
   CONSTRUCT_TAGID(RESOLUTION_UNIT, _ID_RESOLUTION_UNIT)
 #define EXIFTAGTYPE_RESOLUTION_UNIT EXIF_SHORT
+
 // Page Number
 // Use EXIFTAGTYPE_PAGE_NUMBER  as the exif_tag_type (EXIF_SHORT)
 // Count should be 1
@@ -834,6 +872,7 @@ typedef enum
 #define EXIFTAGID_PRIMARY_CHROMATICITIES \
   CONSTRUCT_TAGID(PRIMARY_CHROMATICITIES, _ID_PRIMARY_CHROMATICITIES)
 #define EXIFTAGTYPE_PRIMARY_CHROMATICITIES EXIF_RATIONAL
+
 // COLOR_MAP
 // Use EXIFTAGTYPE_COLOR_MAP as the exif_tag_type (EXIF_SHORT)
 // Count should be 6
@@ -847,6 +886,7 @@ typedef enum
 #define EXIFTAGID_HALFTONE_HINTS \
   CONSTRUCT_TAGID(HALFTONE_HINTS, _ID_HALFTONE_HINTS)
 #define EXIFTAGTYPE_HALFTONE_HINTS EXIF_SHORT
+
 // TILE_WIDTH
 // Use EXIFTAGTYPE_TILE_WIDTH as the exif_tag_type (EXIF_LONG)
 // Count should be 6
@@ -872,6 +912,7 @@ typedef enum
 #define EXIFTAGID_TILE_BYTE_COUNTS  \
   CONSTRUCT_TAGID(TILE_BYTE_COUNTS  , _ID_TILE_BYTE_COUNTS  )
 #define EXIFTAGTYPE_TILE_BYTE_COUNTS EXIF_LONG
+
 // INK_SET
 // Use EXIFTAGTYPE_TILE_LENGTH  as the exif_tag_type (EXIF_SHORT)
 // Count should be 6
@@ -891,12 +932,14 @@ typedef enum
 #define EXIFTAGID_NUMBER_OF_INKS \
   CONSTRUCT_TAGID(NUMBER_OF_INKS , _ID_NUMBER_OF_INKS )
 #define EXIFTAGTYPE_NUMBER_OF_INKS EXIF_SHORT
+
 // DOT_RANGE
 // Use EXIFTAGTYPE_DOT_RANGE  as the exif_tag_type (EXIF_ASCII)
 // Count should be 6
 #define _ID_DOT_RANGE 0x0150
 #define EXIFTAGID_DOT_RANGE CONSTRUCT_TAGID(DOT_RANGE , _ID_DOT_RANGE )
 #define EXIFTAGTYPE_DOT_RANGE EXIF_ASCII
+
 // TARGET_PRINTER
 // Use EXIFTAGTYPE_TARGET_PRINTER  as the exif_tag_type (EXIF_ASCII)
 // Count should be 6
@@ -911,6 +954,7 @@ typedef enum
 #define EXIFTAGID_EXTRA_SAMPLES \
   CONSTRUCT_TAGID(EXTRA_SAMPLES , _ID_EXTRA_SAMPLES )
 #define EXIFTAGTYPE_EXTRA_SAMPLES EXIF_SHORT
+
 // SAMPLE_FORMAT
 // Use EXIFTAGTYPE_SAMPLE_FORMAT  as the exif_tag_type (EXIF_SHORT)
 // Count should be 6
@@ -918,6 +962,7 @@ typedef enum
 #define EXIFTAGID_SAMPLE_FORMAT \
   CONSTRUCT_TAGID(SAMPLE_FORMAT , _ID_SAMPLE_FORMAT )
 #define EXIFTAGTYPE_SAMPLE_FORMAT EXIF_SHORT
+
 // Table of values that extends the range of the transfer function.
 // Use EXIFTAGTYPE_TRANSFER_RANGE as the exif_tag_type (EXIF_SHORT)
 // Count should be 6
@@ -925,12 +970,15 @@ typedef enum
 #define EXIFTAGID_TRANSFER_RANGE \
   CONSTRUCT_TAGID(TRANSFER_RANGE , _ID_TRANSFER_RANGE )
 #define EXIFTAGTYPE_TRANSFER_RANGE EXIF_SHORT
+
 // JPEG compression process.
 // Use EXIFTAGTYPE_JPEG_PROC as the exif_tag_type (EXIF_SHORT)
 //
 #define _ID_JPEG_PROC 0x0200
 #define EXIFTAGID_JPEG_PROC CONSTRUCT_TAGID(JPEG_PROC , _ID_JPEG_PROC )
 #define EXIFTAGTYPE_JPEG_PROC EXIF_SHORT
+
+
 // Offset to JPEG SOI
 // Use EXIFTAGTYPE_JPEG_INTERCHANGE_FORMAT as the exif_tag_type (EXIF_LONG)
 // Count is undefined
@@ -946,6 +994,7 @@ typedef enum
   CONSTRUCT_TAGID(JPEG_INTERCHANGE_FORMAT_LENGTH, \
   _ID_JPEG_INTERCHANGE_FORMAT_LENGTH)
 #define EXIFTAGTYPE_JPEG_INTERCHANGE_FORMAT_LENGTH EXIF_LONG
+
 // Length of the restart interval.
 // Use EXIFTAGTYPE_JPEG_RESTART_INTERVAL as the exif_tag_type (EXIF_SHORT)
 // Count is undefined
@@ -953,6 +1002,7 @@ typedef enum
 #define EXIFTAGID_JPEG_RESTART_INTERVAL \
   CONSTRUCT_TAGID(JPEG_RESTART_INTERVAL, _ID_JPEG_RESTART_INTERVAL)
 #define EXIFTAGTYPE_JPEG_RESTART_INTERVAL EXIF_SHORT
+
 // JPEGLosslessPredictors
 // Use EXIFTAGTYPE_JPEG_LOSSLESS_PREDICTORS as the exif_tag_type (EXIF_SHORT)
 // Count is undefined
@@ -960,6 +1010,7 @@ typedef enum
 #define EXIFTAGID_JPEG_LOSSLESS_PREDICTORS  \
   CONSTRUCT_TAGID(JPEG_LOSSLESS_PREDICTORS, _ID_JPEG_LOSSLESS_PREDICTORS)
 #define EXIFTAGTYPE_JPEG_LOSSLESS_PREDICTORS EXIF_SHORT
+
 // JPEGPointTransforms
 // Use EXIFTAGTYPE_JPEG_POINT_TRANSFORMS as the exif_tag_type (EXIF_SHORT)
 // Count is undefined
@@ -967,6 +1018,7 @@ typedef enum
 #define EXIFTAGID_JPEG_POINT_TRANSFORMS  \
   CONSTRUCT_TAGID(JPEG_POINT_TRANSFORMS, _ID_JPEG_POINT_TRANSFORMS)
 #define EXIFTAGTYPE_JPEG_POINT_TRANSFORMS EXIF_SHORT
+
 // JPEG_Q_TABLES
 // Use EXIFTAGTYPE_JPEG_Q_TABLES as the exif_tag_type (EXIF_LONG)
 // Count is undefined
@@ -988,6 +1040,7 @@ typedef enum
 #define EXIFTAGID_JPEG_AC_TABLES \
   CONSTRUCT_TAGID(JPEG_AC_TABLES, _ID_JPEG_AC_TABLES)
 #define EXIFTAGTYPE_JPEG_AC_TABLES EXIF_LONG
+
 // Color space transformation matrix coefficients
 // Use EXIFTAGTYPE_YCBCR_COEFFICIENTS as the exif_tag_type (EXIF_RATIONAL)
 // Count should be 3
@@ -1036,12 +1089,14 @@ typedef enum
 #define EXIFTAGID_SRGB_RENDERING_INTENT \
   CONSTRUCT_TAGID(SRGB_RENDERING_INTENT, _ID_SRGB_RENDERING_INTENT)
 #define EXIFTAGTYPE_SRGB_RENDERING_INTENT EXIF_BYTE
+
 // Null-terminated character string that specifies the title of the image.
 // Use EXIFTAGTYPE_IMAGE_TITLE as the exif_tag_type (EXIF_ASCII		)
 //
 #define _ID_IMAGE_TITLE 0x0320
 #define EXIFTAGID_IMAGE_TITLE CONSTRUCT_TAGID(IMAGE_TITLE, _ID_IMAGE_TITLE)
 #define EXIFTAGTYPE_IMAGE_TITLE EXIF_ASCII
+
 // Copyright holder
 // Use EXIFTAGTYPE_COPYRIGHT as the exif_tag_type (EXIF_ASCII)
 // Count can be any
@@ -1055,12 +1110,14 @@ typedef enum
 #define EXIFTAGID_NEW_SUBFILE_TYPE \
   CONSTRUCT_TAGID(NEW_SUBFILE_TYPE, _ID_NEW_SUBFILE_TYPE)
 #define EXIFTAGTYPE_NEW_SUBFILE_TYPE EXIF_SHORT
+
 // New Subfile Type
 // Use EXIFTAGTYPE_NEW_SUBFILE_TYPE as the exif_tag_type (EXIF_LONG)
 // Count can be any
 #define _ID_SUBFILE_TYPE 0x00ff
 #define EXIFTAGID_SUBFILE_TYPE CONSTRUCT_TAGID(SUBFILE_TYPE, _ID_SUBFILE_TYPE)
 #define EXIFTAGTYPE_SUBFILE_TYPE EXIF_LONG
+
 // Image width (of thumbnail)
 // Use EXIFTAGTYPE_TN_IMAGE_WIDTH as the exif_tag_type (EXIF_LONG)
 // Count should be 1
@@ -1288,6 +1345,7 @@ typedef enum
 #define EXIFTAGID_EXIF_IFD_PTR \
   CONSTRUCT_TAGID(EXIF_IFD, _ID_EXIF_IFD_PTR)
 #define EXIFTAGTYPE_EXIF_IFD_PTR EXIF_LONG
+
 // ICC_PROFILE (NOT INTENDED to be accessible to user)
 #define _ID_ICC_PROFILE 0x8773
 #define EXIFTAGID_ICC_PROFILE CONSTRUCT_TAGID(ICC_PROFILE, _ID_ICC_PROFILE)
